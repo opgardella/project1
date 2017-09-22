@@ -28,6 +28,7 @@ def mySort(data,col):
 
 	#Your code here:
 	sorteddata = sorted(data, key = lambda x:x[col])
+	return 
 
 
 #Create a histogram
