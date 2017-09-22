@@ -1,18 +1,25 @@
 import os
 import filecmp
+import csv
 
 def getData(file):
 #Input: file name
-#Ouput: return a list of dictionary objects where 
+#Ouput: return a list of dictionary objects where
 #the keys will come from the first row in the data.
 
-#Note: The column headings will not change from the 
-#test cases below, but the the data itself will 
-#change (contents and size) in the different test 
+#Note: The column headings will not change from the
+#test cases below, but the the data itself will
+#change (contents and size) in the different test
 #cases.
 
 	#Your code here:
-	pass
+	datalist = []
+	with open(file) as myfile:
+		data = csv.DictReader(myfile)
+		for row in data:
+			datalist.append(row)
+	return datalist
+
 
 #Sort based on key/column
 def mySort(data,col):
@@ -20,13 +27,14 @@ def mySort(data,col):
 #Output: Return a string of the form firstName lastName
 
 	#Your code here:
-	pass
+	sorteddata = sorted(data, key = lambda x:x[col])
+
 
 #Create a histogram
 def classSizes(data):
 # Input: list of dictionaries
 # Output: Return a list of tuples ordered by
-# ClassName and Class size, e.g 
+# ClassName and Class size, e.g
 # [('Senior', 26), ('Junior', 25), ('Freshman', 21), ('Sophomore', 18)]
 
 	#Your code here:
@@ -107,7 +115,7 @@ def main():
 	print("\nThe most common day of the year to be born is:")
 	total += test(findDay(data),13,10)
 	total += test(findDay(data2),26,10)
-	
+
 	print("\nThe average age is:")
 	total += test(findAge(data),39,10)
 	total += test(findAge(data2),41,10)
@@ -122,4 +130,3 @@ def main():
 # Standard boilerplate to call the main() function that tests all your code.
 if __name__ == '__main__':
     main()
-
