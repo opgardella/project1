@@ -1,3 +1,7 @@
+#Olivia Gardella
+#expected score is 200
+#worked with Julie Burke on concepts
+
 import os
 import filecmp
 import csv
@@ -83,14 +87,14 @@ def findAge(a):
 
 	#Your code here:
 	daysinyear = 365
+	agelist = []
 	today = date.today()
 	for dic in a:
 		birth = dic['DOB']  #in form mm/dd/yyyy
 		birthday = datetime.strptime(birth, "%M/%d/%Y")
-		age = int((today-birthday)).days
-		print (age)
-		#age = int((today - birthday).days / daysinyear)
-		#print (age)
+		agelist.append(today.year - birthday.year - ((today.month, today.day) < (birthday.month, birthday.day)))
+		agesum = round (sum(agelist)/len(agelist))
+	return agesum
 
 
 
@@ -110,7 +114,7 @@ def mySortPrint(a,col,fileName):
 		email = dic['Email']
 		#clas = dic['Class']
 		#dob = dic['DOB']
-		row = first + ',' + last + ',' + email + ',' + '\n'
+		row = first + ',' + last + ',' + email + '\n'
 		f.write(row)
 
 
