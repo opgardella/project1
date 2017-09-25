@@ -1,6 +1,8 @@
 import os
 import filecmp
 import csv
+from datetime import date
+from datetime import datetime
 
 def getData(file):
 #Input: file name
@@ -19,6 +21,7 @@ def getData(file):
 		for row in data:
 			datalist.append(row)
 	return datalist
+	#datalist is a list of dictionaries, evrey dictionary has info from each column
 
 
 #Sort based on key/column
@@ -28,7 +31,8 @@ def mySort(data,col):
 
 	#Your code here:
 	sorteddata = sorted(data, key = lambda x:x[col])
-	return 
+	#sorteddata is a list of dictionaries sorted by column
+	return sorteddata[0]['First'] + ' ' + sorteddata[0]['Last']
 
 
 #Create a histogram
@@ -39,7 +43,15 @@ def classSizes(data):
 # [('Senior', 26), ('Junior', 25), ('Freshman', 21), ('Sophomore', 18)]
 
 	#Your code here:
-	pass
+	#data is a list of dictionaries e.g. [{'First': 'Kelly', 'Last': 'Cole', etc, 'Class':'Junior', etc}, {...}, {...}]
+	#soreddata = sorted(data, key=lambda x:x['class'])
+	count = dict()
+	for dic in data:
+		count[dic['Class']] = count.get(dic['Class'], 0) + 1
+	countlist = count.items()
+	sortedcountlist = sorted(countlist, key = lambda x:x[1], reverse=True)
+	return sortedcountlist
+
 
 
 
@@ -50,7 +62,17 @@ def findDay(a):
 # most often seen in the DOB
 
 	#Your code here:
-	pass
+	count = {}
+	for dic in a:
+		#bday = dic['DOB']
+		#day = bday.split('/')[1]
+		#print (day)
+		count[dic['DOB'].split('/')[1]] = count.get(dic['DOB'].split('/')[1], 0) + 1
+		#count is a dict
+	countlist = count.items()
+	sortedcountlist = sorted(countlist, key = lambda x:x[1], reverse = True)
+	return int(sortedcountlist[0][0])
+
 
 
 # Find the average age (rounded) of the Students
@@ -60,7 +82,17 @@ def findAge(a):
 # most often seen in the DOB
 
 	#Your code here:
-	pass
+	daysinyear = 365
+	today = date.today()
+	for dic in a:
+		birth = dic['DOB']  #in form mm/dd/yyyy
+		birthday = datetime.strptime(birth, "%M/%d/%Y")
+		age = int((today-birthday)).days
+		print (age)
+		#age = int((today - birthday).days / daysinyear)
+		#print (age)
+
+
 
 #Similar to mySort, but instead of returning single
 #Student, all of the sorted data is saved to a csv file.
@@ -69,7 +101,17 @@ def mySortPrint(a,col,fileName):
 #Output: None
 
 	#Your code here:
-	pass
+	sorteddata = sorted(a, key = lambda x:x[col])
+	#sorteddata is a list of dictionaries sorted by column
+	f = open(fileName, 'w', newline = '\n')
+	for dic in sorteddata:
+		first = dic['First']
+		last = dic['Last']
+		email = dic['Email']
+		#clas = dic['Class']
+		#dob = dic['DOB']
+		row = first + ',' + last + ',' + email + ',' + '\n'
+		f.write(row)
 
 
 
