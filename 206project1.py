@@ -1,6 +1,6 @@
 #Olivia Gardella
 #expected score is 200
-#worked with Julie Burke on concepts
+#worked with Julie Burke (on concepts)
 
 import os
 import filecmp
